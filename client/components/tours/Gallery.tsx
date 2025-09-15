@@ -29,9 +29,9 @@ export default function Gallery({
               </button>
             </DialogTrigger>
             <DialogContent className="max-w-4xl p-0 overflow-hidden">
-              <div className="sr-only">
-                <h2>Video</h2>
-              </div>
+              <DialogHeader>
+                <DialogTitle className="sr-only">Video</DialogTitle>
+              </DialogHeader>
               <div className="aspect-video w-full">
                 <iframe
                   width="100%"
