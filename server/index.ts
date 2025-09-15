@@ -20,9 +20,10 @@ export function createServer() {
   app.get("/api/demo", handleDemo);
 
   // VakifBank payment endpoints
-  const { vakifInit, vakifReturn } = await import("./routes/vakif");
-  app.post("/api/payments/vakif/init", vakifInit);
-  app.all("/api/payments/vakif/return", vakifReturn);
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const vakif = require("./routes/vakif") as typeof import("./routes/vakif");
+  app.post("/api/payments/vakif/init", vakif.vakifInit);
+  app.all("/api/payments/vakif/return", vakif.vakifReturn);
 
   return app;
 }
