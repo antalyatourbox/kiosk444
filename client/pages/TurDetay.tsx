@@ -1,15 +1,10 @@
 import { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { tours } from "@/components/tours/data";
 import Gallery from "@/components/tours/Gallery";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import ReservationModal from "@/components/tours/ReservationModal";
 
 export default function TurDetay() {
   const { id } = useParams();
