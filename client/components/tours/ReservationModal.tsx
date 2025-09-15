@@ -278,6 +278,117 @@ export default function ReservationModal({ tour, defaultDate }: ReservationModal
           </aside>
         </div>
       )}
+
+      {step === "payment" && (
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_320px] gap-6">
+          <div className="space-y-4">
+            <Tabs value={method} onValueChange={(v) => setMethod(v as any)}>
+              <TabsList>
+                <TabsTrigger value="card" className="gap-2"><CreditCard className="h-4 w-4"/>Kredi Kartı</TabsTrigger>
+                <TabsTrigger value="pre" className="gap-2"><ShieldCheck className="h-4 w-4"/>Ön Rezervasyon</TabsTrigger>
+              </TabsList>
+              <TabsContent value="card" className="mt-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="md:col-span-2">
+                    <label className="block text-xs text-slate-600 mb-1">Kart Üzerindeki İsim</label>
+                    <input className="w-full rounded-md border px-3 py-2 text-sm" value={cardName} onChange={(e)=>setCardName(e.target.value)} />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-xs text-slate-600 mb-1">Kart Numarası</label>
+                    <input inputMode="numeric" maxLength={19} placeholder="1111 2222 3333 4444" className="w-full rounded-md border px-3 py-2 text-sm" value={cardNumber} onChange={(e)=>setCardNumber(e.target.value.replace(/[^0-9 ]/g,""))} />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-slate-600 mb-1">Son Kullanma Ay</label>
+                    <input inputMode="numeric" placeholder="MM" className="w-full rounded-md border px-3 py-2 text-sm" value={expMonth} onChange={(e)=>setExpMonth(e.target.value)} />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-slate-600 mb-1">Yıl</label>
+                    <input inputMode="numeric" placeholder="YYYY" className="w-full rounded-md border px-3 py-2 text-sm" value={expYear} onChange={(e)=>setExpYear(e.target.value)} />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-slate-600 mb-1">CVV</label>
+                    <input inputMode="numeric" maxLength={4} className="w-full rounded-md border px-3 py-2 text-sm" value={cvv} onChange={(e)=>setCvv(e.target.value.replace(/[^0-9]/g,""))} />
+                  </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="pre" className="mt-4">
+                <div className="space-y-3 text-sm">
+                  <label className="flex items-start gap-2"><Checkbox checked={pre1} onCheckedChange={(v)=>setPre1(Boolean(v))} />
+                    <span>Hizmet Sözleşmesi ve İptal/Değişiklik Şartları'nı okudum, kabul ediyorum.</span>
+                  </label>
+                  <label className="flex items-start gap-2"><Checkbox checked={pre2} onCheckedChange={(v)=>setPre2(Boolean(v))} />
+                    <span>Ticari Elektronik İleti Aydınlatma Metni'ni okudum, onay veriyorum.</span>
+                  </label>
+                  <label className="flex items-start gap-2"><Checkbox checked={pre3} onCheckedChange={(v)=>setPre3(Boolean(v))} />
+                    <span>KVKK Aydınlatma Metni'ni okudum ve kişisel verilerimin işlenmesini kabul ediyorum.</span>
+                  </label>
+                </div>
+              </TabsContent>
+            </Tabs>
+
+            <div className="flex justify-end">
+              <button
+                className="rounded-md bg-brand text-white px-4 py-2 font-semibold disabled:opacity-50"
+                disabled={method === "card" ? !(cardName && cardNumber && expMonth && expYear && cvv) : !(pre1 && pre2 && pre3)}
+                onClick={() => {
+                  setReservationCode(genCode());
+                  setStep("success");
+                }}
+              >
+                Ödemeyi Tamamla
+              </button>
+            </div>
+          </div>
+
+          <aside className="rounded-lg border p-4 bg-card/50">
+            <h3 className="font-semibold mb-3">Tur Özeti</h3>
+            <dl className="space-y-2 text-sm">
+              <div className="flex justify-between"><dt className="text-slate-600 flex items-center gap-2"><Calendar className="h-4 w-4"/>Tarih</dt><dd className="font-medium text-right">{date ? new Date(date).toLocaleString("tr-TR") : "—"}</dd></div>
+              <div className="flex justify-between"><dt className="text-slate-600 flex items-center gap-2"><Users className="h-4 w-4"/>Kişi</dt><dd className="font-medium">{totalPeople}</dd></div>
+              <div className="flex justify-between"><dt className="text-slate-600 flex items-center gap-2"><User className="h-4 w-4"/>Rezervasyon Sahibi</dt><dd className="font-medium text-right">{(firstName + " " + lastName).trim() || "—"}</dd></div>
+              <div className="flex justify-between"><dt className="text-slate-600 flex items-center gap-2"><MapPin className="h-4 w-4"/>Kalkış</dt><dd className="font-medium">{departure}</dd></div>
+              <div className="flex justify-between"><dt className="text-slate-600 flex items-center gap-2"><CreditCard className="h-4 w-4"/>Kişi Başı</dt><dd className="font-medium">{formatEUR(tour.priceEUR)}</dd></div>
+            </dl>
+            <div className="border-t mt-3 pt-3 flex justify-between text-sm">
+              <span className="font-semibold">Toplam</span>
+              <span className="font-extrabold">{formatEUR(totalPrice)}</span>
+            </div>
+          </aside>
+        </div>
+      )}
+
+      {step === "success" && (
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_320px] gap-6">
+          <div className="space-y-4">
+            <div className="rounded-lg border p-6 bg-green-50 dark:bg-green-950/20">
+              <div className="flex items-center gap-3 text-green-600 dark:text-green-400">
+                <CheckCircle2 className="h-6 w-6"/>
+                <p className="font-semibold">Rezervasyonunuz onaylanmıştır</p>
+              </div>
+              <p className="mt-2 text-sm">Rezervasyon kodunuz: <b>{reservationCode}</b>. Bu kodu not ediniz.</p>
+            </div>
+
+            <div className="rounded-lg border p-4">
+              <h4 className="font-semibold mb-2">Özet</h4>
+              <ul className="text-sm space-y-1">
+                <li className="flex justify-between"><span className="text-slate-600">Tur</span><span className="font-medium">{tour.title}</span></li>
+                <li className="flex justify-between"><span className="text-slate-600">Tarih</span><span className="font-medium">{date ? new Date(date).toLocaleString("tr-TR") : "—"}</span></li>
+                <li className="flex justify-between"><span className="text-slate-600">Kişiler</span><span className="font-medium">{adults} yetişkin, {children} çocuk, {babies} bebek</span></li>
+                <li className="flex justify-between"><span className="text-slate-600">Rezervasyon Sahibi</span><span className="font-medium">{firstName} {lastName}</span></li>
+                <li className="flex justify-between"><span className="text-slate-600">Kalkış</span><span className="font-medium">{departure}</span></li>
+                <li className="flex justify-between"><span className="text-slate-600">Toplam</span><span className="font-extrabold">{formatEUR(totalPrice)}</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <aside className="rounded-lg border p-4 bg-card/50">
+            <h3 className="font-semibold mb-3">Ödeme Yöntemi</h3>
+            <p className="text-sm">{method === "card" ? "Kredi Kartı" : "Ön Rezervasyon"}</p>
+            <p className="text-xs text-slate-500 mt-2 flex items-center gap-2"><ShieldCheck className="h-4 w-4"/>Ödemeniz güvenli şekilde işlenmiştir.</p>
+          </aside>
+        </div>
+      )}
     </DialogContent>
   );
 }
