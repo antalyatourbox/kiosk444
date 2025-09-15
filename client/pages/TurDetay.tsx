@@ -67,69 +67,7 @@ export default function TurDetay() {
                 Rezervasyon Yap
               </button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl">
-              <DialogHeader>
-                <DialogTitle>Rezervasyon</DialogTitle>
-              </DialogHeader>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <div>
-                  <label className="block text-xs text-slate-600 mb-1">
-                    Yetişkin
-                  </label>
-                  <input
-                    type="number"
-                    min={1}
-                    defaultValue={2}
-                    className="w-full rounded-md border px-3 py-2 text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs text-slate-600 mb-1">
-                    Çocuk
-                  </label>
-                  <input
-                    type="number"
-                    min={0}
-                    defaultValue={0}
-                    className="w-full rounded-md border px-3 py-2 text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs text-slate-600 mb-1">
-                    Bebek
-                  </label>
-                  <input
-                    type="number"
-                    min={0}
-                    defaultValue={0}
-                    className="w-full rounded-md border px-3 py-2 text-sm"
-                  />
-                </div>
-                <div className="md:col-span-3">
-                  <p className="text-sm font-medium mb-2">Ekstralar</p>
-                  <div className="grid grid-cols-2 gap-2 text-sm">
-                    <label className="flex items-center gap-2">
-                      <Checkbox /> Öğle Yemeği
-                    </label>
-                    <label className="flex items-center gap-2">
-                      <Checkbox /> Fotoğraf/Video
-                    </label>
-                    <label className="flex items-center gap-2">
-                      <Checkbox /> Otel Transfer
-                    </label>
-                    <label className="flex items-center gap-2">
-                      <Checkbox /> Dalış Ekipmanı
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className="flex justify-end gap-2">
-                <button className="rounded-md border px-4 py-2">İptal</button>
-                <button className="rounded-md bg-brand text-white px-4 py-2 font-semibold">
-                  Rezervasyona Devam Et
-                </button>
-              </div>
-            </DialogContent>
+            <ReservationModal tour={tour} defaultDate={date} />
           </Dialog>
         </aside>
 
