@@ -330,10 +330,37 @@ export default function ReservationModal({ tour, defaultDate }: ReservationModal
             <div className="flex justify-end">
               <button
                 className="rounded-md bg-brand text-white px-4 py-2 font-semibold disabled:opacity-50"
-                disabled={method === "card" ? !(cardName && cardNumber && expMonth && expYear && cvv) : !(pre1 && pre2 && pre3)}
-                onClick={() => {
-                  setReservationCode(genCode());
-                  setStep("success");
+                disabled={method === "pre" ? !(pre1 && pre2 && pre3) : false}
+                onClick={async () => {
+                  if (method === "pre") {
+                    setReservationCode(genCode());
+                    setStep("success");
+                    return;
+                  }
+                  const oid = reservationCode || genCode();
+                  setReservationCode(oid);
+                  const res = await fetch("/api/payments/vakif/init", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ amount: totalPrice, orderId: oid, currency: "EUR" }),
+                  });
+                  if (!res.ok) {
+                    alert("Ödeme başlatılamadı. Lütfen daha sonra tekrar deneyin.");
+                    return;
+                  }
+                  const data = (await res.json()) as { gatewayUrl: string; fields: Record<string, string> };
+                  const form = document.createElement("form");
+                  form.method = "POST";
+                  form.action = data.gatewayUrl;
+                  Object.entries(data.fields).forEach(([k, v]) => {
+                    const input = document.createElement("input");
+                    input.type = "hidden";
+                    input.name = k;
+                    input.value = String(v);
+                    form.appendChild(input);
+                  });
+                  document.body.appendChild(form);
+                  form.submit();
                 }}
               >
                 Ödemeyi Tamamla
