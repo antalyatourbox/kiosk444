@@ -13,6 +13,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Calendar, CreditCard, MapPin, ShieldCheck, CheckCircle2, Users, User } from "lucide-react";
 import type { Tour } from "./data";
 
 function formatEUR(n: number) {
