@@ -393,7 +393,13 @@ export default function ReservationModal({ tour, defaultDate }: ReservationModal
                 <CheckCircle2 className="h-6 w-6"/>
                 <p className="font-semibold">Rezervasyonunuz onaylanmıştır</p>
               </div>
-              <p className="mt-2 text-sm">Rezervasyon kodunuz: <b>{reservationCode}</b>. Bu kodu not ediniz.</p>
+              <p className="mt-2 text-sm">Rezervasyon kodunuz: <b>{reservationCode}</b>.</p>
+              <div className="mt-3">
+                <button
+                  className="rounded-md bg-brand text-white px-3 py-2 text-sm font-semibold"
+                  onClick={() => setVoucherOpen(true)}
+                >Voucher'ı Görüntüle</button>
+              </div>
             </div>
 
             <div className="rounded-lg border p-4">
