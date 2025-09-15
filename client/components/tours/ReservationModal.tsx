@@ -31,7 +31,7 @@ export type ReservationModalProps = {
 };
 
 export default function ReservationModal({ tour, defaultDate }: ReservationModalProps) {
-  const [step, setStep] = useState<"select" | "details">("select");
+  const [step, setStep] = useState<"select" | "details" | "payment" | "success">("select");
 
   const [date, setDate] = useState<string>(defaultDate || "");
   const [adults, setAdults] = useState(2);
