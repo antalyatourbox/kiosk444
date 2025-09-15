@@ -423,6 +423,20 @@ export default function ReservationModal({ tour, defaultDate }: ReservationModal
           </aside>
         </div>
       )}
+      <VoucherModal
+        open={voucherOpen}
+        onOpenChange={setVoucherOpen}
+        tour={tour}
+        date={date}
+        adults={adults}
+        children={children}
+        babies={babies}
+        leadName={`${firstName} ${lastName}`.trim()}
+        email={email}
+        departure={departure}
+        reservationCode={reservationCode || ""}
+        totalPrice={totalPrice}
+      />
     </DialogContent>
   );
 }
