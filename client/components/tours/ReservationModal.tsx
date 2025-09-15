@@ -62,6 +62,7 @@ export default function ReservationModal({ tour, defaultDate }: ReservationModal
   const [pre3, setPre3] = useState(false);
 
   const [reservationCode, setReservationCode] = useState<string | null>(null);
+  const [voucherOpen, setVoucherOpen] = useState(false);
 
   function genCode(len = 8) {
     const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
