@@ -254,15 +254,7 @@ export default function ReservationModal({ tour, defaultDate }: ReservationModal
             <div className="flex justify-end">
               <button
                 className="rounded-md bg-brand text-white px-4 py-2 font-semibold"
-                onClick={() => {
-                  // final submit simulation
-                  alert("Rezervasyon talebiniz alındı.\n\n" +
-                    `Ad Soyad: ${firstName} ${lastName}\n` +
-                    `Telefon: ${phone}\n` +
-                    `E-posta: ${email}\n` +
-                    `Kalkış Yeri: ${departure}\n` +
-                    `Toplam: ${formatEUR(totalPrice)}\n`);
-                }}
+                onClick={() => setStep("payment")}
               >
                 Güvenli Ödeme İçin Devam Et
               </button>
