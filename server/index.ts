@@ -19,5 +19,15 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
 
+  // VakifBank payment endpoints
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const vakif = require("./routes/vakif") as typeof import("./routes/vakif");
+  app.post("/api/payments/vakif/init", vakif.vakifInit);
+  app.all("/api/payments/vakif/return", vakif.vakifReturn);
+
+  const voucher =
+    require("./routes/voucher") as typeof import("./routes/voucher");
+  app.post("/api/voucher-email", voucher.sendVoucherEmail);
+
   return app;
 }

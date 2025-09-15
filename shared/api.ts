@@ -1,12 +1,15 @@
-/**
- * Shared code between client and server
- * Useful to share types between client and server
- * and/or small pure JS functions that can be used on both client and server
- */
-
-/**
- * Example response type for /api/demo
- */
 export interface DemoResponse {
   message: string;
+}
+
+export interface VakifInitRequest {
+  amount: number;
+  orderId: string;
+  currency?: string; // ISO code, default EUR
+  description?: string;
+}
+
+export interface VakifInitResponse {
+  gatewayUrl: string;
+  fields: Record<string, string>;
 }

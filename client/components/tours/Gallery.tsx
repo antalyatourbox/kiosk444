@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Play } from "lucide-react";
 
 export default function Gallery({
@@ -29,6 +35,9 @@ export default function Gallery({
               </button>
             </DialogTrigger>
             <DialogContent className="max-w-4xl p-0 overflow-hidden">
+              <DialogHeader>
+                <DialogTitle className="sr-only">Video</DialogTitle>
+              </DialogHeader>
               <div className="aspect-video w-full">
                 <iframe
                   width="100%"
