@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { tours } from "@/components/tours/data";
 import Gallery from "@/components/tours/Gallery";
