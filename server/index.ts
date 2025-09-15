@@ -25,7 +25,8 @@ export function createServer() {
   app.post("/api/payments/vakif/init", vakif.vakifInit);
   app.all("/api/payments/vakif/return", vakif.vakifReturn);
 
-  const voucher = require("./routes/voucher") as typeof import("./routes/voucher");
+  const voucher =
+    require("./routes/voucher") as typeof import("./routes/voucher");
   app.post("/api/voucher-email", voucher.sendVoucherEmail);
 
   return app;
