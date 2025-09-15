@@ -73,7 +73,12 @@ export default function ReservationModal({ tour, defaultDate }: ReservationModal
   return (
     <DialogContent className="max-w-5xl w-[95vw]">
       <DialogHeader>
-        <DialogTitle>{step === "select" ? "Rezervasyon" : "Yolcu Bilgileri"}</DialogTitle>
+        <DialogTitle>
+          {step === "select" && "Rezervasyon"}
+          {step === "details" && "Yolcu Bilgileri"}
+          {step === "payment" && "Ödeme Bilgileri"}
+          {step === "success" && "Rezervasyonunuz Onaylanmıştır"}
+        </DialogTitle>
       </DialogHeader>
 
       {step === "select" ? (
