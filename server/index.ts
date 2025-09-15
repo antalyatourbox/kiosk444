@@ -19,5 +19,10 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
 
+  // VakifBank payment endpoints
+  const { vakifInit, vakifReturn } = await import("./routes/vakif");
+  app.post("/api/payments/vakif/init", vakifInit);
+  app.all("/api/payments/vakif/return", vakifReturn);
+
   return app;
 }
