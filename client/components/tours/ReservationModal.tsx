@@ -50,6 +50,26 @@ export default function ReservationModal({ tour, defaultDate }: ReservationModal
   const priceablePeople = adults + children; // bebek ücretsiz varsayalım
   const totalPrice = useMemo(() => priceablePeople * tour.priceEUR, [priceablePeople, tour.priceEUR]);
 
+  // Payment states
+  const [method, setMethod] = useState<"card" | "pre">("card");
+  const [cardName, setCardName] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [expMonth, setExpMonth] = useState("");
+  const [expYear, setExpYear] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [pre1, setPre1] = useState(false);
+  const [pre2, setPre2] = useState(false);
+  const [pre3, setPre3] = useState(false);
+
+  const [reservationCode, setReservationCode] = useState<string | null>(null);
+
+  function genCode(len = 8) {
+    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    let out = "";
+    for (let i = 0; i < len; i++) out += chars[Math.floor(Math.random() * chars.length)];
+    return out;
+  }
+
   return (
     <DialogContent className="max-w-5xl w-[95vw]">
       <DialogHeader>
